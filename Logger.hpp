@@ -1,5 +1,3 @@
-#include "../include/ANSIColorTable.h"
-
 #include <ostream>
 #include <sstream>
 #include <string>
