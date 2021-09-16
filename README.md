@@ -33,7 +33,7 @@ All functionality is implemented under the log namespace, this namespace has the
 
 → Method Signature 
 ```c++
-            static void createProgressBar(std::ostream &os, unsigned int width,
+            static void displayProgressBar(std::ostream &os, unsigned int width,
                                          const std::string &msg = "Loading",
                                           const bool& useColor = true,
                                           const unsigned int &waitAmount = 100,
