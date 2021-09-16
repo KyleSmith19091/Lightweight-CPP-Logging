@@ -134,7 +134,7 @@ namespace Log {
                 return "[" + getTimeStringFromSeconds(timeRemaining) + "]"; 
             }
 
-            static void createProgressBarWithoutColour(std::ostream &os, unsigned int width,
+            static void displayProgressBar(std::ostream &os, unsigned int width,
                                           const std::string &msg = "Loading",
                                           const unsigned int &waitAmount = 100,
                                           const std::string &loadingSymbol = "━") {
@@ -216,7 +216,7 @@ namespace Log {
                                           const std::string &loadingSymbol = "━") {
 
               if(!useColor) {
-                  createProgressBarWithoutColour(os, width,msg,waitAmount,loadingSymbol);
+                  displayProgressBar(os, width,msg,waitAmount,loadingSymbol);
                   return;
               }
 
