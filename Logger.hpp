@@ -1,3 +1,6 @@
+#ifndef LOGGER_HPP
+#define LOGGER_HPP
+
 #include <ostream>
 #include <sstream>
 #include <string>
@@ -363,3 +366,4 @@ namespace Log {
     };
 };
 
+#endif
