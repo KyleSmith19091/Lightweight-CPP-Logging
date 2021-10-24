@@ -59,14 +59,20 @@ Logging can be done using a level system of either
 - Error
 - Critical
 
+<h4>Output Format</h4>
+
+```console
+{time} [LEVEL] {filename} Message
+```
+
 **Example**
 ```c++
 // Standard Output
-std::cout << Log::Debug() << "Debug Message\n";
-std::cout << Log::Info() << "Info Message\n";
+std::cout << DEBUG << "Debug Message\n";
+std::cout << INFO << "Info Message\n";
 
 // Example with file output
-outFile << Log::Critical() << "Critical message into file\n";
+outFile << CRITICAL << "Critical message into file\n";
 ```
 
 
