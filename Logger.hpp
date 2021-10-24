@@ -83,6 +83,8 @@
 #define RST "\e[0m"
 
 namespace Log {
+    #define __FILENAME__ (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__)
+
 
     class Progressbar {
         #define PERCENTAGE_MESSAGE_MAX_SIZE 6
@@ -306,63 +308,23 @@ namespace Log {
     };
 
     class Debug {
-        private:
-            static constexpr const char* DEBUG_COLOR = GRN;
-            static constexpr const char* MESSAGE = "[DEBUG]";
-
-        public: 
-            friend std::ostream &operator<<(std::ostream &output, const Log::Debug& l) { 
-                output << Log::Clock() << DEBUG_COLOR << MESSAGE << RST << "    ";
-                return output;            
-            }       
+        #define DEBUG Log::Clock() << GRN << "[DEBUG]    {" << __FILENAME__ << "}" << RST << "   "
     };
 
     class Info {
-        private:
-            static constexpr const char* DEBUG_COLOR = BLU;
-            static constexpr const char* MESSAGE = "[INFO]";
-
-        public: 
-            friend std::ostream &operator<<(std::ostream &output, const Log::Info& l) { 
-                output << Log::Clock() << DEBUG_COLOR << MESSAGE << RST << "     ";
-                return output;            
-            }       
+        #define INFO Log::Clock() << BLU << "[INFO]     {" << __FILENAME__ << "}" << RST << "   "
     };
 
     class Warning {
-        private:
-            static constexpr const char* DEBUG_COLOR = YEL;
-            static constexpr const char* MESSAGE = "[WARNING]";
-
-        public: 
-            friend std::ostream &operator<<(std::ostream &output, const Log::Warning& l) { 
-                output << Log::Clock() << DEBUG_COLOR << MESSAGE << RST << "  ";
-                return output;            
-            }       
+        #define WARNING Log::Clock() << YEL << "[WARNING]  {" << __FILENAME__ << "}" << RST << "   "
     };
 
     class Error {
-        private:
-            static constexpr const char* DEBUG_COLOR = HRED;
-            static constexpr const char* MESSAGE = "[ERROR]";
-
-        public: 
-            friend std::ostream &operator<<(std::ostream &output, const Log::Error& l) { 
-                output << Log::Clock() << DEBUG_COLOR << MESSAGE << RST << "    ";
-                return output;            
-            }       
+        #define ERROR Log::Clock() << HRED << "[ERROR]    {" << __FILENAME__ << "}" << RST << "   "
     };
 
     class Critical {
-        private:
-            static constexpr const char* DEBUG_COLOR = REDHB;
-            static constexpr const char* MESSAGE = "[CRITICAL]";
-
-        public: 
-            friend std::ostream &operator<<(std::ostream &output, const Log::Critical& l) { 
-                output << Log::Clock() << DEBUG_COLOR << MESSAGE << RST << " ";
-                return output;            
-            }       
+        #define CRITICAL Log::Clock() << REDHB << "[CRITICAL] {" << __FILENAME__ << "}" << RST << "   "
     };
 };
 
