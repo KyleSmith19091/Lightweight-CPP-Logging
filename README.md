@@ -71,8 +71,11 @@ Logging can be done using a level system of either
 std::cout << DEBUG << "Debug Message\n";
 std::cout << INFO << "Info Message\n";
 
-// Example with file output
-outFile << CRITICAL << "Critical message into file\n";
+// Standard Output alternative syntax
+std::cout << Log::Debug() << "Debug Message\n";
+
+// Example with file output => Needs to use alternative syntax
+outFile << Log::Critical() << "Critical message into file\n";
 ```
 
 
