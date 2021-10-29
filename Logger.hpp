@@ -8,6 +8,7 @@
 #include <chrono>
 #include <sys/ioctl.h> 
 #include <unistd.h> 
+#include <iostream>
 
 //Regular text
 #define BLK "\e[0;30m"
@@ -301,7 +302,11 @@ namespace Log {
                 int hours = ct->tm_hour;
 
                 // Format time string
-                output << MAG << "{" << (hours<10?"0":"") << hours <<":" << (minutes<10?"0":"") << minutes << ":" << (seconds<10?"0":"") << seconds << "} " << RST;
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << MAG << "{" << (hours<10?"0":"") << hours <<":" << (minutes<10?"0":"") << minutes << ":" << (seconds<10?"0":"") << seconds << "} " << RST;
+                } else {
+                    output << "{" << (hours<10?"0":"") << hours <<":" << (minutes<10?"0":"") << minutes << ":" << (seconds<10?"0":"") << seconds << "} ";
+                }
 
                 return output;
             }
@@ -309,23 +314,74 @@ namespace Log {
 
     class Debug {
         #define DEBUG Log::Clock() << GRN << "[DEBUG]    {" << __FILENAME__ << "}" << RST << "   "
+        #define DEBUG_NO_COLOR Log::Clock() << "[DEBUG]    {" << __FILENAME__ << "}" << "   "
+        public:
+            friend std::ostream &operator<<(std::ostream &output, const Log::Debug& l) { 
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << DEBUG;
+                } else {
+                    output << DEBUG_NO_COLOR;
+                }
+                return output;            
+            }
     };
 
     class Info {
         #define INFO Log::Clock() << BLU << "[INFO]     {" << __FILENAME__ << "}" << RST << "   "
+        #define INFO_NO_COLOR Log::Clock() << "[INFO]     {" << __FILENAME__ << "}" << "   "
+        public:
+            friend std::ostream &operator<<(std::ostream &output, const Log::Info& l) { 
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << INFO;
+                } else {
+                    output << INFO_NO_COLOR;
+                }
+                return output;            
+            }
     };
 
     class Warning {
         #define WARNING Log::Clock() << YEL << "[WARNING]  {" << __FILENAME__ << "}" << RST << "   "
+        #define WARNING_NO_COLOR Log::Clock() << "[WARNING]  {" << __FILENAME__ << "}" << "   "
+        public:
+            friend std::ostream &operator<<(std::ostream &output, const Log::Warning& l) { 
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << WARNING;
+                } else {
+                    output << WARNING_NO_COLOR;
+                }
+                return output;            
+            }
     };
 
     class Error {
         #define ERROR Log::Clock() << HRED << "[ERROR]    {" << __FILENAME__ << "}" << RST << "   "
+        #define ERROR_NO_COLOR Log::Clock() << "[ERROR]    {" << __FILENAME__ << "}" << "   "
+        public:
+            friend std::ostream &operator<<(std::ostream &output, const Log::Error& l) { 
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << ERROR;
+                } else {
+                    output << ERROR_NO_COLOR;
+                }
+                return output;            
+            }
     };
 
     class Critical {
         #define CRITICAL Log::Clock() << REDHB << "[CRITICAL] {" << __FILENAME__ << "}" << RST << "   "
+        #define CRITICAL_NO_COLOR Log::Clock() << "[CRITICAL] {" << __FILENAME__ << "}" << "   "
+        public:
+            friend std::ostream &operator<<(std::ostream &output, const Log::Critical& l) { 
+                if(output.rdbuf() == std::cout.rdbuf()) {
+                    output << CRITICAL;
+                } else {
+                    output << CRITICAL_NO_COLOR;
+                }
+                return output;            
+            }
     };
+
 };
 
 #endif
